@@ -27,7 +27,7 @@ where p.perc_promo != 0
 AND p.id = l.product_id
 group by p.id
 order by sum(l.quantity) ASC
-limit 5
+limit 5;
 
 # 	Pandas
 
