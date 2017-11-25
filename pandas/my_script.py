@@ -12,12 +12,22 @@ order_lines = pd.read_csv("data/order_lines.csv", header=None, names = ["order_i
 
 #Question 2 : Panier moyen par jour :
 
-mergedDF = pd.merge(orders, order_lines, left_on = 'id', right_on = 'order_id')
-mergedDF = pd.merge(mergedDF, products, left_on='product_id', right_on='product_id')
+PanierMoyen = pd.merge(orders, order_lines, left_on = 'id', right_on = 'order_id')
+PanierMoyen = pd.merge(PanierMoyen, products, left_on='product_id', right_on='product_id')
 
-mergedDF['final_price'] = mergedDF.apply(lambda row: row.quantity * (row.price - (row.perc_promo*row.price/100)), axis = 1)
-DF = mergedDF.groupby(['date', 'id'], as_index=False)['final_price'].sum()
-PanierMoyen = DF.groupby(['date'], as_index=False)['final_price'].mean()
+PanierMoyen['final_price'] = PanierMoyen.apply(lambda row: row.quantity * (row.price - (row.perc_promo*row.price/100)), axis = 1)
+PanierMoyen = PanierMoyen.groupby(['date', 'id'], as_index=False)['final_price'].sum()
+PanierMoyen = PanierMoyen.groupby(['date'], as_index=False)['final_price'].mean()
 
-print("Panier moyen par jour : ")
+print("\nPanier moyen par jour :\n")
 print(PanierMoyen)
+
+#Question 3 :
+
+LessSoldItems = pd.merge(order_lines, products, left_on="product_id", right_on = "product_id")
+LessSoldItems = LessSoldItems[(LessSoldItems.perc_promo != 0)]
+LessSoldItems = LessSoldItems.groupby(['product_id'], as_index=False)['quantity'].sum()
+LessSoldItems = LessSoldItems.sort_values(['quantity', 'product_id'], ascending=True)
+print("\n\nLes 5  produits avec reduction les moins achetés :\n")
+print(LessSoldItems['product_id'].head(5))
+print('\n')

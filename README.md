@@ -1,6 +1,6 @@
-#   Test Technque Data Auchan:Direct
+#   	Test Technque Data Auchan:Direct
 
-#SQL
+#		SQL
 
 _1. Créer une table nommée order_details avec les colonnes suivantes :_
 
@@ -9,14 +9,14 @@ create table order_details(order_id INTEGER, date DATE, nb_products INTEGER, amo
 
 _2. Donner le panier moyen par jour. Le panier moyen est le montant moyen par commande sur une période donnée._
 
-select A.day, AVG(A.final_price) as panier_moyen
-from( 	select o.date as day, o.id, l.product_id,
-		sum(l.quantity*(p.price-(p.perc_promo*p.price/100))) as final_price
-		from orders o, order_lines l, products p 	
-		WHERE o.id = l.order_id
-		AND l.product_id = p.id
-		GROUP BY o.id, o.date) A
-GROUP BY A.day;
+	select A.day, AVG(A.final_price) as panier_moyen
+	from( 	select o.date as day, o.id, l.product_id,
+			sum(l.quantity*(p.price-(p.perc_promo*p.price/100))) as final_price
+			from orders o, order_lines l, products p 	
+			WHERE o.id = l.order_id
+			AND l.product_id = p.id
+			GROUP BY o.id, o.date) A
+	GROUP BY A.day;
 
 
 _3. Donner les 5 produits en promos les moins achetés._
@@ -27,10 +27,15 @@ where p.perc_promo != 0
 AND p.id = l.product_id
 group by p.id
 order by sum(l.quantity) ASC
-limit 4
+limit 5
 
-#Pandas
+# 	Pandas
 
+_Pour lancer le project_
+
+cd pandas
+docker build -t pandas .
+docker run pandas
 
 
 
