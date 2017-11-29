@@ -1,6 +1,7 @@
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
 
 orders = pd.read_csv("data/orders.csv", names = ["id", "date"])
 products = pd.read_csv("data/products.csv", header=None, names = ["product_id", "price", "perc_promo"])
