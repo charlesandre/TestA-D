@@ -5,12 +5,13 @@
 _1. Créer une table nommée order_details avec les colonnes suivantes :_
 
 	create table
-	order_details(order_id INTEGER,
-								date DATE,
-								nb_products INTEGER,
-								amount DECIMAL(4,2),
-								billed_price DECIMAL(4,2)
-								);
+	order_details(
+		order_id INTEGER,
+		date DATE,
+		nb_products INTEGER,
+		amount DECIMAL(4,2),
+		billed_price DECIMAL(4,2)
+		);
 
 
 _2. Donner le panier moyen par jour. Le panier moyen est le montant moyen par commande sur une période donnée._
@@ -42,7 +43,3 @@ _Pour lancer le project_
 cd pandas
 docker build -t pandas .
 docker run pandas
-
-
-
-Coquilles : products_id est en fait ID
